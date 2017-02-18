@@ -52,11 +52,19 @@ nice make install-target-libgcc
 
 cd $HOME/wos
 
-</code></pre>
+nasm -felf32 boot.asm -o boot.o
+i586-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+i586-elf-gcc -T linker.ld -o wos.bin -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+
+mkdir -p isodir/boot/grub
+cp wos.bin isodir/boot/myos.bin
+cp grub.cfg isodir/boot/grub/grub.cfg
+grub-mkrescue -o wos.iso isodir
+
+qemu-system-i386 -kernel myos.bin</code></pre>
 
 
 ## References
-<pre>
-[osdev barebones](http://wiki.osdev.org/Bare_Bones)
+<pre>[osdev barebones](http://wiki.osdev.org/Bare_Bones)
 [dopsys osdev](https://cs.au.dk/~sortie/dopsys/osdev)
 [brokenthorn](http://www.brokenthorn.com/Resources/OSDevIndex.html)
