@@ -8,4 +8,6 @@ I generally followed the instructions [here](https://cs.au.dk/~sortie/dopsys/osd
   - mpc-1.0.3
   - mpfr-3.1.5
   
- 
+ When it comes to building gcc libraries use the following
+   - make all-target-libgcc
+   - make install-target-libgcc
